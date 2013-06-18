@@ -26,7 +26,11 @@ git pull origin master
 git submodule init
 git submodule update
 
-
-
+useradd -M -s /bin/sh --uid=515 www
+cd $DIR/$NAME/nginx
+yum install -y zlib-devel.x86_64
+./configure --prefix=/usr/local/nginx-test --user=www --group=www --with-http_gzip_static_module --with-http_stub_status_module --with-pcre=$DIR/$NAME/pcre 
+make
+make install
 
 
