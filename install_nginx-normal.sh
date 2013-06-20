@@ -20,15 +20,15 @@ NOTE_ID=$(date +%Y%m%d-%s)
 DIR=/usr/local/src
 cd $DIR
 S_NGINX=$DIR/nginx-1.5.1
-#U_NGINX=http://nginx.org/download/nginx-1.5.1.tar.gz
-#[ -e $S_NGINX.tar.gz ] || wget $U_NGINX -O $S_NGINX.tar.gz && tar xzf $S_NGINX.tar.gz
-#S_PCRE=$DIR/pcre-8.33
-#U_PCRE=http://ncu.dl.sourceforge.net/project/pcre/pcre/8.33/pcre-8.33.tar.gz
-#[ -e $S_PCRE.tar.gz ] || wget $U_PCRE -O $S_PCRE.tar.gz && tar xzf $S_PCRE.tar.gz
-#
-## Operate
-#id www 2>&1 1>/dev/null
-#[ $? -eq 0 ] || useradd -M -s /bin/sh --uid=515 www
+U_NGINX=http://nginx.org/download/nginx-1.5.1.tar.gz
+[ -e $S_NGINX.tar.gz ] || wget $U_NGINX -O $S_NGINX.tar.gz && tar xzf $S_NGINX.tar.gz
+S_PCRE=$DIR/pcre-8.33
+U_PCRE=http://ncu.dl.sourceforge.net/project/pcre/pcre/8.33/pcre-8.33.tar.gz
+[ -e $S_PCRE.tar.gz ] || wget $U_PCRE -O $S_PCRE.tar.gz && tar xzf $S_PCRE.tar.gz
+
+# Operate
+id www 2>&1 1>/dev/null
+[ $? -eq 0 ] || useradd -M -s /bin/sh --uid=515 www
 wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/200.jpg -o $S_NGINX/html/200.jpg
 wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/404.html -o $S_NGINX/html/404.html
 wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/404.jpg -o $S_NGINX/html/404.jpg
