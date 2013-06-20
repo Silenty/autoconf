@@ -4,7 +4,7 @@
 # Purpose: One-key operation install nginx normal
 # Date:        2013-06-18
 # Author:      xtso520ok@gmail.com
-# Environment: OS Linux, gcc, gcc-c++, make
+# Environment: OS Linux, gcc, gcc-c++, make, zlib
 # Des:         ...
 #
 
@@ -25,6 +25,7 @@ U_NGINX=http://nginx.org/download/nginx-1.5.1.tar.gz
 S_PCRE=$DIR/pcre-8.33
 U_PCRE=http://ncu.dl.sourceforge.net/project/pcre/pcre/8.33/pcre-8.33.tar.gz
 [ -e $S_PCRE.tar.gz ] || wget $U_PCRE -O $S_PCRE.tar.gz && tar xzf $S_PCRE.tar.gz
+PREFIX=nginx-test
 
 # Operate
 id www 2>&1 1>/dev/null
@@ -40,22 +41,27 @@ mkdir -p $S_NGINX/conf/vhost
 mv $S_NGINX/conf/nginx.conf{,.$NOTE_ID}
 wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx.conf -O $S_NGINX/conf/nginx.conf
 wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx-init -O $S_NGINX/conf/nginx-init
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx-init -O $S_NGINX/conf/nginx-sysconfig
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx-sysconfig -O $S_NGINX/conf/nginx-sysconfig
 wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/vhost/dir.i-david.org.conf -O $S_NGINX/conf/vhost/dir.i-david.org.conf
-
-
-cd $DIR
+sed -i 's/PREFIX/'$PREFIX'/'  $S_NGINX/conf/nginx-sysconfig
 sed -i 's/"1.5.1"/"1.5.1_1.0"/' $S_NGINX/src/core/nginx.h
 sed -i 's/"nginx\/"/"DS\/"/' $S_NGINX/src/core/nginx.h
 sed -i 's/"NGINX"/"DS"/' $S_NGINX/src/core/nginx.h
 sed -i 's/"Server: nginx"/"Server: DS"/' $S_NGINX/src/http/ngx_http_header_filter_module.c
 
-
-exit 0
 # Install
-cd $DIR
-./configure --prefix=/usr/local/nginx-test --user=www --group=www --with-http_gzip_static_module --with-http_stub_status_module --with-pcre=$DIR/$NAME/pcre 
+cd $S_NGINX
+./configure --prefix=/usr/local/nginx-test --user=www --group=www --with-http_gzip_static_module --with-http_stub_status_module --with-pcre=$S_PCRE
 make
 make install
 
+# Configure
+[ -e /etc/sysconfig/nginx ] && mv /etc/sysconfig/nginx{,.$NOTE_ID}
+cp $S_NGINX/conf/nginx-sysconfig /etc/sysconfig/nginx
+[ -e /usr/sbin/nginx ] && mv /usr/sbin/nginx{,.$NOTE_ID}
+ln -s /usr/local/$PREFIX/sbin/nginx /usr/sbin/nginx
+[ -e /etc/init.d/nginx ] && mv /etc/init.d/nginx{,.$NOTE_ID}
+cp $S_NGINX/conf/nginx-init /etc/init.d/nginx
+chmod +x $S_NGINX/conf/nginx-init /etc/init.d/nginx
+/usr/sbin/nginx -t 
 
