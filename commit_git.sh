@@ -13,13 +13,15 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 read -p "Commit dir: " dir
 cd $dir
 echo "Start commit $dir"
+echo "Before operate view status -- "
 git status -s
 git add *
+echo "After add view status -- "
 git status -s
 read -p "Commit description: " comment
 git commit -m "$comment"
+echo "After commit view status -- "
 git status -s
 git push origin master
-git status -s
 
 
