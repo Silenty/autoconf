@@ -56,12 +56,14 @@ make
 make install
 
 # Configure
-[ -e /etc/sysconfig/nginx ] && mv /etc/sysconfig/nginx{,.$NOTE_ID}
-cp $S_NGINX/conf/nginx-sysconfig /etc/sysconfig/nginx
-[ -e /usr/sbin/nginx ] && mv /usr/sbin/nginx{,.$NOTE_ID}
+mkdir -p /usr/local/$PREFIX/conf/vhost
+/bin/cp -r $S_NGINX/conf/vhost/dir.i-david.org.conf /usr/local/$PREFIX/conf/vhost/dir.i-david.org.conf
+/bin/mv /etc/sysconfig/nginx{,.$NOTE_ID}
+/bin/cp $S_NGINX/conf/nginx-sysconfig /etc/sysconfig/nginx
+/bin/mv /usr/sbin/nginx{,.$NOTE_ID}
 ln -s /usr/local/$PREFIX/sbin/nginx /usr/sbin/nginx
-[ -e /etc/init.d/nginx ] && mv /etc/init.d/nginx{,.$NOTE_ID}
-cp $S_NGINX/conf/nginx-init /etc/init.d/nginx
+/bin/mv /etc/init.d/nginx{,.$NOTE_ID}
+/bin/cp $S_NGINX/conf/nginx-init /etc/init.d/nginx
 chmod +x $S_NGINX/conf/nginx-init /etc/init.d/nginx
 /usr/sbin/nginx -t 
 
