@@ -29,19 +29,19 @@ U_PCRE=http://ncu.dl.sourceforge.net/project/pcre/pcre/8.33/pcre-8.33.tar.gz
 # Operate
 id www 2>&1 1>/dev/null
 [ $? -eq 0 ] || useradd -M -s /bin/sh --uid=515 www
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/200.jpg -o $S_NGINX/html/200.jpg
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/404.html -o $S_NGINX/html/404.html
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/404.jpg -o $S_NGINX/html/404.jpg
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/500.html -o $S_NGINX/html/500.html
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/500.jpg -o $S_NGINX/html/500.jpg
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/favicon.ico -o $S_NGINX/html/favicon.ico
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/index.html -o $S_NGINX/html/index.html
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/200.jpg -O $S_NGINX/html/200.jpg
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/404.html -O $S_NGINX/html/404.html
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/404.jpg -O $S_NGINX/html/404.jpg
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/500.html -O $S_NGINX/html/500.html
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/500.jpg -O $S_NGINX/html/500.jpg
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/favicon.ico -O $S_NGINX/html/favicon.ico
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/html/index.html -O $S_NGINX/html/index.html
 mkdir -p $S_NGINX/conf/vhost
 mv $S_NGINX/conf/nginx.conf{,.$NOTE_ID}
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx.conf -o $S_NGINX/conf/nginx.conf
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx-init -o $S_NGINX/conf/nginx-init
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx-init -o $S_NGINX/conf/nginx-sysconfig
-wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/vhost/dir.i-david.org.conf -o $S_NGINX/conf/vhost/dir.i-david.org.conf
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx.conf -O $S_NGINX/conf/nginx.conf
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx-init -O $S_NGINX/conf/nginx-init
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx-init -O $S_NGINX/conf/nginx-sysconfig
+wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/vhost/dir.i-david.org.conf -O $S_NGINX/conf/vhost/dir.i-david.org.conf
 
 
 cd $DIR
