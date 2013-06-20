@@ -11,6 +11,10 @@
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 read -p "Commit dir: " dir
+if [ ! -e $dir ]; then
+    echo "$dir not found."
+    exit 0
+fi
 cd $dir
 echo "Start commit $dir"
 echo "Before operate view status -- "
