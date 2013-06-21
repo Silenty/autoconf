@@ -20,8 +20,8 @@ NOTE_ID=$(date +%Y%m%d-%s)
 PREFIX=nginx-mogilefs
 DIR=/usr/local/src
 cd $DIR
-S_NGINX=$DIR/nginx-1.5.1
-U_NGINX=http://nginx.org/download/nginx-1.5.1.tar.gz
+S_NGINX=$DIR/nginx-1.2.9
+U_NGINX=http://nginx.org/download/nginx-1.2.9.tar.gz
 [ -e $S_NGINX.tar.gz ] || wget $U_NGINX -O $S_NGINX.tar.gz && tar xzf $S_NGINX.tar.gz
 S_PCRE=$DIR/pcre-8.33
 U_PCRE=http://ncu.dl.sourceforge.net/project/pcre/pcre/8.33/pcre-8.33.tar.gz
@@ -52,7 +52,7 @@ wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/nginx-sysc
 wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-normal/vhost/fs.i-david.org.conf -O $S_NGINX/conf/vhost/fs.i-david.org.conf
 wget -q https://raw.github.com/xtso520ok/autoconf/master/nginx-mogilefs/ngx_http_mogilefs_module.c -O $S_NGINXMOGILEFS/ngx_http_mogilefs_module.c
 sed -i 's/PREFIX/'$PREFIX'/'  $S_NGINX/conf/nginx-sysconfig
-sed -i 's/"1.5.1"/"1.5.1_1.0"/' $S_NGINX/src/core/nginx.h
+sed -i 's/"1.2.9"/"1.2.9_1.0"/' $S_NGINX/src/core/nginx.h
 sed -i 's/"nginx\/"/"DS\/"/' $S_NGINX/src/core/nginx.h
 sed -i 's/"NGINX"/"DS"/' $S_NGINX/src/core/nginx.h
 sed -i 's/"Server: nginx"/"Server: DS"/' $S_NGINX/src/http/ngx_http_header_filter_module.c
