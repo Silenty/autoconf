@@ -61,7 +61,7 @@ mkdir -p /usr/local/$PREFIX/conf/vhost
 [ -e /etc/sysconfig/nginx ] && /bin/mv /etc/sysconfig/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-sysconfig /etc/sysconfig/nginx
 [ -e /usr/sbin/nginx ] && /bin/mv /usr/sbin/nginx{,.$NOTE_ID}
-/bin/rm /usr/sbin/nginx
+rm -f /usr/sbin/nginx
 ln -s /usr/local/$PREFIX/sbin/nginx /usr/sbin/nginx
 [ -e /etc/init.d/ngin ] && /bin/mv /etc/init.d/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-init /etc/init.d/nginx

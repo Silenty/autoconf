@@ -60,7 +60,7 @@ sed -i 's/\$HTTP_ACCESSKEY_MODULE/ngx_http_accesskey_module/' $DIR/nginx-accessk
 
 # Install
 cd $S_NGINX
-./configure --prefix=/usr/local/$PREFIX --user=www --group=www --with-http_gzip_static_module --with-http_stub_status_module --with-pcre=$S_PCRE --add-module=$DIR/nginx_mogilefs_module-1.0.4 --add-module=$DIR/nginx-accesskey-2.0.3
+./configure --prefix=/usr/local/$PREFIX --user=www --group=www --with-http_gzip_static_module --with-http_stub_status_module --with-pcre=$S_PCRE --add-module=$S_NGINXACCESSKEY --add-module=$S_NGINXMOGILEFS
 make
 make install
 
@@ -70,7 +70,7 @@ mkdir -p /usr/local/$PREFIX/conf/vhost
 [ -e /etc/sysconfig/nginx ] && /bin/mv /etc/sysconfig/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-sysconfig /etc/sysconfig/nginx
 [ -e /usr/sbin/nginx ] && /bin/mv /usr/sbin/nginx{,.$NOTE_ID}
-/bin/rm /usr/sbin/nginx
+rm -f /usr/sbin/nginx
 ln -s /usr/local/$PREFIX/sbin/nginx /usr/sbin/nginx
 [ -e /etc/init.d/nginx ] && /bin/mv /etc/init.d/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-init /etc/init.d/nginx
