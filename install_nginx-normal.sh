@@ -17,6 +17,7 @@ echo ===========================================================================
 NOTE_ID=$(date +%Y%m%d-%s)
 
 # Source prepare
+PREFIX=nginx-normal
 DIR=/usr/local/src
 cd $DIR
 S_NGINX=$DIR/nginx-1.5.1
@@ -25,7 +26,6 @@ U_NGINX=http://nginx.org/download/nginx-1.5.1.tar.gz
 S_PCRE=$DIR/pcre-8.33
 U_PCRE=http://ncu.dl.sourceforge.net/project/pcre/pcre/8.33/pcre-8.33.tar.gz
 [ -e $S_PCRE.tar.gz ] || wget $U_PCRE -O $S_PCRE.tar.gz && tar xzf $S_PCRE.tar.gz
-PREFIX=nginx
 
 # Operate
 id www 2>&1 1>/dev/null
@@ -51,7 +51,7 @@ sed -i 's/"Server: nginx"/"Server: DS"/' $S_NGINX/src/http/ngx_http_header_filte
 
 # Install
 cd $S_NGINX
-./configure --prefix=/usr/local/nginx-test --user=www --group=www --with-http_gzip_static_module --with-http_stub_status_module --with-pcre=$S_PCRE
+./configure --prefix=/usr/local/$PREFIX --user=www --group=www --with-http_gzip_static_module --with-http_stub_status_module --with-pcre=$S_PCRE
 make
 make install
 
@@ -61,6 +61,7 @@ mkdir -p /usr/local/$PREFIX/conf/vhost
 [ -e /etc/sysconfig/nginx ] && /bin/mv /etc/sysconfig/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-sysconfig /etc/sysconfig/nginx
 [ -e /usr/sbin/nginx ] && /bin/mv /usr/sbin/nginx{,.$NOTE_ID}
+/bin/rm /usr/sbin/nginx
 ln -s /usr/local/$PREFIX/sbin/nginx /usr/sbin/nginx
 [ -e /etc/init.d/ngin ] && /bin/mv /etc/init.d/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-init /etc/init.d/nginx

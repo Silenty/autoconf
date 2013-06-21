@@ -17,7 +17,7 @@ echo ===========================================================================
 NOTE_ID=$(date +%Y%m%d-%s)
 
 # Source prepare
-PREFIX=nginx
+PREFIX=nginx-mogilefs
 DIR=/usr/local/src
 cd $DIR
 S_NGINX=$DIR/nginx-1.5.1
@@ -60,18 +60,19 @@ sed -i 's/\$HTTP_ACCESSKEY_MODULE/ngx_http_accesskey_module/' $DIR/nginx-accessk
 
 # Install
 cd $S_NGINX
-./configure --prefix=/usr/local/nginx-test --user=www --group=www --with-http_gzip_static_module --with-http_stub_status_module --with-pcre=$S_PCRE --add-module=$DIR/nginx_mogilefs_module-1.0.4 --add-module=$DIR/nginx-accesskey-2.0.3
+./configure --prefix=/usr/local/$PREFIX --user=www --group=www --with-http_gzip_static_module --with-http_stub_status_module --with-pcre=$S_PCRE --add-module=$DIR/nginx_mogilefs_module-1.0.4 --add-module=$DIR/nginx-accesskey-2.0.3
 make
 make install
 
 # Configure
 mkdir -p /usr/local/$PREFIX/conf/vhost
 /bin/cp -r $S_NGINX/conf/vhost/fs.i-david.org.conf /usr/local/$PREFIX/conf/vhost/fs.i-david.org.conf
-/bin/mv /etc/sysconfig/nginx{,.$NOTE_ID}
+[ -e /etc/sysconfig/nginx ] && /bin/mv /etc/sysconfig/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-sysconfig /etc/sysconfig/nginx
-/bin/mv /usr/sbin/nginx{,.$NOTE_ID}
+[ -e /usr/sbin/nginx ] && /bin/mv /usr/sbin/nginx{,.$NOTE_ID}
+/bin/rm /usr/sbin/nginx
 ln -s /usr/local/$PREFIX/sbin/nginx /usr/sbin/nginx
-/bin/mv /etc/init.d/nginx{,.$NOTE_ID}
+[ -e /etc/init.d/nginx ] && /bin/mv /etc/init.d/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-init /etc/init.d/nginx
 chmod +x $S_NGINX/conf/nginx-init /etc/init.d/nginx
 /usr/sbin/nginx -t 
