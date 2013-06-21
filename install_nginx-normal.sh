@@ -60,7 +60,7 @@ mkdir -p /usr/local/$PREFIX/conf/vhost
 /bin/cp -r $S_NGINX/conf/vhost/dir.i-david.org.conf /usr/local/$PREFIX/conf/vhost/dir.i-david.org.conf
 [ -e /etc/sysconfig/nginx ] && /bin/mv /etc/sysconfig/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-sysconfig /etc/sysconfig/nginx
-[ /usr/sbin/nginx ] && /bin/mv /usr/sbin/nginx{,.$NOTE_ID}
+[ -e /usr/sbin/nginx ] && /bin/mv /usr/sbin/nginx{,.$NOTE_ID}
 ln -s /usr/local/$PREFIX/sbin/nginx /usr/sbin/nginx
 [ -e /etc/init.d/ngin ] && /bin/mv /etc/init.d/nginx{,.$NOTE_ID}
 /bin/cp $S_NGINX/conf/nginx-init /etc/init.d/nginx
